@@ -1,0 +1,6 @@
+couchbase:
+  bucket: default
+  password:
+  nodes: 127.0.0.1
+
+logging.level.com.couchbase: DEBUG
