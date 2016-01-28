@@ -1,0 +1,16 @@
+{
+  "name": "clientservice",
+  "version": "1.0.0",
+  "description": "Client service to call the three service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ronic",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.5.2",
+    "express": "^4.13.4",
+    "request": "^2.69.0"
+  }
+}
