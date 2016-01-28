@@ -1,5 +1,5 @@
 couchbase:
-  bucket: default
+  bucket: price
   password:
   nodes: 127.0.0.1
 

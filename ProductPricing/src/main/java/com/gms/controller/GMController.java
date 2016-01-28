@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.couchbase.client.java.document.JsonDocument;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.couchbase.client.java.error.DocumentAlreadyExistsException;
-import com.gms.GMCouchbaseService;
+import com.gms.service.GMCouchbaseServiceImpl;
 
 
 @RestController
 @RequestMapping("/gms")
 public class GMController {
 
-    private final GMCouchbaseService gmCouchbaseService;
+    private final GMCouchbaseServiceImpl gmCouchbaseService;
 
     @Autowired
-    public GMController(GMCouchbaseService gmCouchbaseService) {
+    public GMController(GMCouchbaseServiceImpl gmCouchbaseService) {
         this.gmCouchbaseService = gmCouchbaseService;
     }
 
@@ -43,9 +43,9 @@ public class GMController {
     public ResponseEntity<String> createPrice(@RequestBody Map<String, Object> priceData) {
         String id = "";
         try {
-            JsonObject beer = parsePrice(priceData);
-            id = "gm-" + beer.getString("sku");
-            JsonDocument doc = GMCouchbaseService.createDocument(id, beer);
+            JsonObject priceObject = parsePrice(priceData);
+            id = "gm-" + priceObject.getString("sku");
+            JsonDocument doc = GMCouchbaseServiceImpl.createDocument(id, priceObject);
             gmCouchbaseService.create(doc);
             return new ResponseEntity<String>(id, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
