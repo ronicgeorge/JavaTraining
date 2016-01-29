@@ -51,7 +51,7 @@ public class GMCouchbaseServiceImpl implements GMCouchbaseService {
 	}
 	
 	public Observable<AsyncViewResult> getProductsBatch(int offset,int limit){
-		return bucket.async().query(ViewQuery.from("dev_gms", "byproductsku").limit(offset).skip(offset));
+		return bucket.async().query(ViewQuery.from("dev_gms", "byproductsku").limit(2).skip(0));
 	}
 	
 	public JsonDocument getProduct(String sku){

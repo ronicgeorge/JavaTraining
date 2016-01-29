@@ -68,15 +68,15 @@ public class CatalogueController {
 	@GET
 	@Path("/productbatch")
 	public Response getProductBatch(@QueryParam("offset") int offset, @QueryParam("limit") int limit) {
-		System.out.println("*************************************************S");
 		JsonArray array = JsonArray.create();
-		final CountDownLatch latch = new CountDownLatch(10);
+		final CountDownLatch latch = new CountDownLatch(limit);
 		Observable<AsyncViewResult> viewResult = gmCouchbaseService.getProductsBatch(offset, limit);
 		viewResult.toBlocking().subscribe(onNext -> {
 			onNext.rows().forEach(row -> {
 				row.document().subscribe(jsonDocument -> {
-					latch.countDown();
+					System.out.println("json "+jsonDocument.content());
 					array.add(jsonDocument.content());
+					latch.countDown();
 				});
 			});
 			;
@@ -87,26 +87,7 @@ public class CatalogueController {
 		} catch (InterruptedException e) {
 			return Response.status(HttpStatus.INTERNAL_SERVER_ERROR_500).build();
 		}
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		return Response.ok(array.toString()).build();
-//		System.out.println("Got control getProducts batch---------------------------------------");
-//		List<AsyncViewResult> bo=gmCouchbaseService.getProductsBatch(offset);
-//		bo.stream().parallel().it
-//		for (AsyncViewResult asyncViewResult : bo) {
-////			asynch
-//		}
-////		bo.forEach((avr)->{return null});
-////		 JsonArray keys = JsonArray.create();
-////	        Iterator<ViewRow> iter = viewResult.rows();
-////	        while (iter.hasNext()) {
-////	            ViewRow row = iter.next();
-////	            JsonObject beer = JsonObject.create();
-////	            beer.put("name", row.key());
-////	            beer.put("id", row.id());
-////	            keys.add(beer);
-//		return Response.ok(gmCouchbaseService.getProductsBatch(offset)).status(HttpStatus.OK_200).build();
-////            return Response.ok(gmCouchbaseService.getProductsBatch(offset)).status(HttpStatus.OK_200).build();
-////            return null;
 	}
 	
 	@GET
