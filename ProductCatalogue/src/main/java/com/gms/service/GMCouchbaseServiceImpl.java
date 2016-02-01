@@ -43,15 +43,13 @@ public class GMCouchbaseServiceImpl implements GMCouchbaseService {
 		ViewResult result = bucket.query(ViewQuery.from("dev_gms", "byproductsku").key(productCategory));
 		for (ViewRow row : result) {
 		    JsonDocument doc = row.document();
-
 		    keys.add(doc.content());
 		}
-		System.out.println("list size: "+keys.size());
 		return keys;
 	}
 	
 	public Observable<AsyncViewResult> getProductsBatch(int offset,int limit){
-		return bucket.async().query(ViewQuery.from("dev_gms", "byproductsku").limit(2).skip(0));
+		return bucket.async().query(ViewQuery.from("dev_gms", "byproductsku").limit(limit).skip(offset));
 	}
 	
 	public JsonDocument getProduct(String sku){
@@ -75,10 +73,6 @@ public class GMCouchbaseServiceImpl implements GMCouchbaseService {
 		return bucket.replace(product);
 	}
 	
-	
-	
-
-
 	/**
      * Prepare a new JsonDocument with some JSON content
      */
