@@ -1,4 +1,4 @@
-ProductPricing(Spring boot service-gradle project)
+ProductPricing(Spring boot service-maven project)
 --------------
 	1. Import the project as a maven project. Update the project dependencies. 
 	2. Sample requests
@@ -20,17 +20,17 @@ ProductPricing(Spring boot service-gradle project)
 		No views used for this bucket
 
 
-ProductCatalogue(Dropwizard service-maven project)
+ProductCatalogue(Dropwizard service-gradle project)
 ----------------
 	1.Import the project as a gradle project. Update the project dependencies.
 	2.Sample requests
 		/gms 		---	 RequestMethod.POST 	--- Create a price details for a particular sku
 		/gms/{sku}	---  RequestMethod.GET 		--- List the product details of requested sku --- Sample: /gms/gm-100 
 		/gms/{sku} 	---  RequestMethod.DELETE 	--- Delete the price document of requested sku	--- Sample: /gms/gm-100
-		/gms/assync ---	 RequestMethod.POST 	--- Create a price details for a particular sku in a assync method(same method has the blocking concept but it is comented)
+		/gms/assync ---	 RequestMethod.POST 	--- Create a price details for a particular sku in a assync method(same method has the blocking concept but it is commented)
 		/gms/productbatch?offset=2&limit=5 ---- RequestMethod.GET --- List the product details in a batch(this uses a couchbase view)
 		/gms/products?category=Electronics ---- RequestMethod.GET --- List the product details with category as Electronics
-	3. Sample product documnet:
+	3. Sample product document:
 		{								//document key will be gm-100
 		  "dialshape": "square",
 		  "description": "Smart watch",
